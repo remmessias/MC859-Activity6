@@ -170,11 +170,13 @@ public abstract class AbstractGA<G extends Number, F> {
 
 			Population parents = selectParents(population);
 
-			// Population offsprings = crossover(parents);
+			Population offsprings = crossover(parents);
 
-			Population offsprings = uniformCrossover(parents);
+			//Population offsprings = uniformCrossover(parents);
 
-			Population mutants = mutate(offsprings);
+			// Population mutants = mutate(offsprings);
+
+			Population mutants = adaptativeMutation(offsprings);
 
 			Population newpopulation = selectPopulation(mutants);
 
@@ -231,6 +233,23 @@ public abstract class AbstractGA<G extends Number, F> {
 		}
 
 		return bestChromosome;
+	}
+
+	/**
+	 * Given a population of chromosome, caculates the average fitness.
+	 * 
+	 * @param population
+	 *            A population of chromosomes.
+	 * @return The average fitness of a  population.
+	 */
+	protected Double getAverageFitness(Population population) {
+		double fitnessSum = 0;
+		
+		for (Chromosome c : population) {
+			fitnessSum += fitness(c);
+		}
+
+		return fitnessSum / population.size();
 	}
 
 	/**
@@ -412,6 +431,23 @@ public abstract class AbstractGA<G extends Number, F> {
 			for (int locus = 0; locus < chromosomeSize; locus++) {
 				if (rng.nextDouble() < mutationRate) {
 					mutateGene(c, locus);
+				}
+			}
+		}
+
+		return offsprings;
+	}
+
+	protected Population adaptativeMutation(Population offsprings) {
+		Double averageFitness = getAverageFitness(offsprings);
+		
+		for (Chromosome c : offsprings) {
+			double chromosomeFitness = fitness(c);
+			if (chromosomeFitness < averageFitness) {
+				for (int locus = 0; locus < chromosomeSize; locus++) {
+					if (rng.nextDouble() < mutationRate) {
+						mutateGene(c, locus);
+					}
 				}
 			}
 		}

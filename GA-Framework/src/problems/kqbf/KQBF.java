@@ -387,7 +387,7 @@ public class KQBF implements KQBF_Evaluator<Integer> {
 	 */
 	public static void main(String[] args) throws IOException {
 
-		KQBF kqbf = new KQBF("instances/kqbf/kqbf040");
+		KQBF kqbf = new KQBF("GA-Framework/instances/kqbf/kqbf040");
 		kqbf.printMatrix();
 		Double maxVal = Double.NEGATIVE_INFINITY;
 		
