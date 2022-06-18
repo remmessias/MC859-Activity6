@@ -127,7 +127,7 @@ public class GA_KQBF extends AbstractGA<Integer, Integer> {
 	public static void main(String[] args) throws IOException {
 
 		long startTime = System.currentTimeMillis();
-		GA_KQBF ga = new GA_KQBF(1000, 100, 1.0 / 100.0, "instances/kqbf/kqbf400");
+		GA_KQBF ga = new GA_KQBF(1000, 100, 1.0 / 100.0, "GA-Framework/instances/kqbf/kqbf400");
         KQBF objFunction = (KQBF) ga.ObjFunction;
 		Solution<Integer> bestSol = ga.solve();
 		System.out.println("maxVal = " + bestSol);
@@ -138,5 +138,4 @@ public class GA_KQBF extends AbstractGA<Integer, Integer> {
 		System.out.println("Time = " + (double) totalTime / (double) 1000 + " seg");
 
 	}
-
 }
